@@ -1,4 +1,4 @@
-const baseURL = "https://Resume-19.onrender.com/resume"; // backend endpoint
+const baseURL = "https://Resume-20.onrender.com/resume"; // backend endpoint
 const name = "Alice Kumar"; // replace with actual resume name
 const mainContent = document.getElementById("mainContent");
 
