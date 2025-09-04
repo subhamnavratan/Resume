@@ -1,10 +1,10 @@
 // ============================
 // CONFIG
 // ============================
-const baseURL = "https://Resume-23.onrender.com/resume"; // backend endpoint
-const resumeName = "Alice Kumar"; // replace with actual resume name
+const baseURL = "https://Resume-24.onrender.com/resume"; // backend endpoint
+const resumeName = "Subham Kumar Navratan"; // replace with actual resume name
 
-// Select main content container (by class, not id)
+// Select main content container
 const mainContent = document.querySelector(".content");
 
 // ============================
@@ -30,7 +30,10 @@ async function fetchResume() {
     } catch (err) {
         console.error("❌ Fetch error:", err);
         clearMain();
-        mainContent.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+        const errorMsg = document.createElement("p");
+        errorMsg.style.color = "red";
+        errorMsg.innerText = `Error: ${err.message}`;
+        mainContent.appendChild(errorMsg);
         return null;
     }
 }
@@ -40,29 +43,44 @@ async function fetchResume() {
 // ============================
 
 function renderAbout(data) {
-    mainContent.innerHTML = `
-        <h2>${data.name || "No Name Available"}</h2>
-        <p>${data.about || "No about information available."}</p>
-    `;
+    const div = document.createElement("div");
+    const h2 = document.createElement("h2");
+    h2.innerText = data.name || "No Name Available";
+    const p = document.createElement("p");
+    p.innerText = data.about || "No about information available.";
+    div.appendChild(h2);
+    div.appendChild(p);
+    mainContent.appendChild(div);
 }
 
 function renderContact(contact) {
-    mainContent.innerHTML = `
-        <p>Email: ${contact.email || "N/A"}</p>
-        <p>Phone: ${contact.phoneNumber || "N/A"}</p>
-        <p>LinkedIn: ${contact.linkedin ? `<a href="${contact.linkedin}" target="_blank">${contact.linkedin}</a>` : "N/A"}</p>
-        <p>GitHub: ${contact.github ? `<a href="${contact.github}" target="_blank">${contact.github}</a>` : "N/A"}</p>
-        <p>Address: ${contact.address || "N/A"}</p>
-    `;
+    const div = document.createElement("div");
+
+    const email = document.createElement("p");
+    email.innerText = `Email: ${contact.email || "N/A"}`;
+    const phone = document.createElement("p");
+    phone.innerText = `Phone: ${contact.phoneNumber || "N/A"}`;
+    const linkedin = document.createElement("p");
+    linkedin.innerHTML = `LinkedIn: ${contact.linkedin ? `<a href="${contact.linkedin}" target="_blank">${contact.linkedin}</a>` : "N/A"}`;
+    const github = document.createElement("p");
+    github.innerHTML = `GitHub: ${contact.github ? `<a href="${contact.github}" target="_blank">${contact.github}</a>` : "N/A"}`;
+    const address = document.createElement("p");
+    address.innerText = `Address: ${contact.address || "N/A"}`;
+
+    div.append(email, phone, linkedin, github, address);
+    mainContent.appendChild(div);
 }
 
 function renderEducation(education) {
     if (!education || education.length === 0) {
-        mainContent.innerHTML = "<p>No education details available.</p>";
+        const p = document.createElement("p");
+        p.innerText = "No education details available.";
+        mainContent.appendChild(p);
         return;
     }
 
     const table = document.createElement("table");
+    table.border = "1";
     const thead = document.createElement("thead");
     const headerRow = document.createElement("tr");
 
@@ -90,43 +108,74 @@ function renderEducation(education) {
 
 function renderSkills(skills) {
     if (!skills || skills.length === 0) {
-        mainContent.innerHTML = "<p>No skills available.</p>";
+        const p = document.createElement("p");
+        p.innerText = "No skills available.";
+        mainContent.appendChild(p);
         return;
     }
-    const list = document.createElement("ul");
+    const ul = document.createElement("ul");
     skills.forEach(skill => {
         const li = document.createElement("li");
         li.innerText = skill;
-        list.appendChild(li);
+        ul.appendChild(li);
     });
-    mainContent.appendChild(list);
+    mainContent.appendChild(ul);
 }
 
 function renderProjects(projects) {
     if (!projects || projects.length === 0) {
-        mainContent.innerHTML = "<p>No projects available.</p>";
+        const p = document.createElement("p");
+        p.innerText = "No projects available.";
+        mainContent.appendChild(p);
         return;
     }
+
     projects.forEach(project => {
         const div = document.createElement("div");
-        div.innerHTML = `
-            <h3>${project.title || "Untitled Project"}</h3>
-            <p>${project.description || "No description available."}</p>
-            ${project.link ? `<a href="${project.link}" target="_blank">${project.link}</a>` : ""}
-        `;
+        const h3 = document.createElement("h3");
+        h3.innerText = project.title || "Untitled Project";
+        const p = document.createElement("p");
+        p.innerText = project.description || "No description available.";
+        div.appendChild(h3);
+        div.appendChild(p);
+
+        if (project.link) {
+            const a = document.createElement("a");
+            a.href = project.link;
+            a.target = "_blank";
+            a.innerText = project.link;
+            div.appendChild(a);
+        }
+
         mainContent.appendChild(div);
     });
 }
 
 function renderAchievements(data) {
     if (!data.achievement && !data.leetcodeProfile && !data.gfgProfile) {
-        mainContent.innerHTML = "<p>No achievements available.</p>";
+        const p = document.createElement("p");
+        p.innerText = "No achievements available.";
+        mainContent.appendChild(p);
         return;
     }
+
     const div = document.createElement("div");
-    if (data.achievement) div.innerHTML += `<p>${data.achievement}</p>`;
-    if (data.leetcodeProfile) div.innerHTML += `<p>LeetCode: <a href="${data.leetcodeProfile}" target="_blank">${data.leetcodeProfile}</a></p>`;
-    if (data.gfgProfile) div.innerHTML += `<p>GeeksforGeeks: <a href="${data.gfgProfile}" target="_blank">${data.gfgProfile}</a></p>`;
+    if (data.achievement) {
+        const p = document.createElement("p");
+        p.innerText = data.achievement;
+        div.appendChild(p);
+    }
+    if (data.leetcodeProfile) {
+        const p = document.createElement("p");
+        p.innerHTML = `LeetCode: <a href="${data.leetcodeProfile}" target="_blank">${data.leetcodeProfile}</a>`;
+        div.appendChild(p);
+    }
+    if (data.gfgProfile) {
+        const p = document.createElement("p");
+        p.innerHTML = `GeeksforGeeks: <a href="${data.gfgProfile}" target="_blank">${data.gfgProfile}</a>`;
+        div.appendChild(p);
+    }
+
     mainContent.appendChild(div);
 }
 
@@ -146,7 +195,10 @@ async function showSection(section) {
         case "skills": renderSkills(data.skills); break;
         case "projects": renderProjects(data.projects); break;
         case "achievement": renderAchievements(data); break;
-        default: mainContent.innerHTML = "<p>Section not found</p>";
+        default:
+            const p = document.createElement("p");
+            p.innerText = "Section not found";
+            mainContent.appendChild(p);
     }
 }
 
@@ -154,10 +206,11 @@ async function showSection(section) {
 // INIT
 // ============================
 
-// Load "about" section by default when page loads
+// Load "about" section by default
 document.addEventListener("DOMContentLoaded", () => {
     showSection("about");
 });
+
 
 
 
