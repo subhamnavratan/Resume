@@ -1,4 +1,4 @@
-const baseURL = "https://resume-14.onrender.com"; // Replace with your backend URL
+const baseURL = "https://REsume.onrender.com"; // Replace with your backend URL
 const resumeId = "68b73987f247c44ed5dcdb8c"; // Example resume ID
 const mainContent = document.getElementById("mainContent");
 
