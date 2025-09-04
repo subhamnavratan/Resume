@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,25 +28,27 @@ public class ResumeService {
         return resumeRepository.findAll();
     }
 
-    // ---------- GET RESUME BY EMAIL ----------
-    public Optional<Resume> getResumeByEmail(String email) {
-        return resumeRepository.findByEmail(email);
+    // ---------- GET RESUMES BY NAME ----------
+    public List<Resume> getResumesByName(String name) {
+        return resumeRepository.findByName(name);
     }
 
-    // ---------- DELETE RESUME ----------
-    public void deleteResume(String email) {
-        resumeRepository.deleteByEmail(email);
+    // ---------- DELETE RESUMES BY NAME ----------
+    public void deleteResumeByName(String name) {
+        resumeRepository.deleteByName(name);
     }
 
     // ---------- CONTACT DETAILS ----------
-    public ContactDetail getContactDetail(String email) {
-        return resumeRepository.findByEmail(email)
+    public ContactDetail getContactDetailByName(String name) {
+        return resumeRepository.findByName(name).stream()
+                .findFirst()
                 .map(Resume::getContactDetail)
                 .orElse(null);
     }
 
-    public ContactDetail updateContact(String email, ContactDTO dto) {
-        Resume resume = resumeRepository.findByEmail(email)
+    public ContactDetail updateContactByName(String name, ContactDTO dto) {
+        Resume resume = resumeRepository.findByName(name).stream()
+                .findFirst()
                 .orElseThrow(() -> new RuntimeException("Resume not found"));
 
         ContactDetail contact = resume.getContactDetail();
@@ -65,14 +66,16 @@ public class ResumeService {
     }
 
     // ---------- EDUCATION DETAILS ----------
-    public List<EducationDetail> getEducationDetails(String email) {
-        return resumeRepository.findByEmail(email)
+    public List<EducationDetail> getEducationDetailsByName(String name) {
+        return resumeRepository.findByName(name).stream()
+                .findFirst()
                 .map(Resume::getEducationDetails)
                 .orElse(null);
     }
 
-    public List<EducationDetail> updateEducation(String email, List<EducationDTO> dtos) {
-        Resume resume = resumeRepository.findByEmail(email)
+    public List<EducationDetail> updateEducationByName(String name, List<EducationDTO> dtos) {
+        Resume resume = resumeRepository.findByName(name).stream()
+                .findFirst()
                 .orElseThrow(() -> new RuntimeException("Resume not found"));
 
         List<EducationDetail> details = dtos.stream().map(dto -> {
@@ -90,14 +93,16 @@ public class ResumeService {
     }
 
     // ---------- SKILLS ----------
-    public List<String> getSkills(String email) {
-        return resumeRepository.findByEmail(email)
+    public List<String> getSkillsByName(String name) {
+        return resumeRepository.findByName(name).stream()
+                .findFirst()
                 .map(Resume::getSkills)
                 .orElse(null);
     }
 
-    public List<String> updateSkills(String email, SkillsDTO dto) {
-        Resume resume = resumeRepository.findByEmail(email)
+    public List<String> updateSkillsByName(String name, SkillsDTO dto) {
+        Resume resume = resumeRepository.findByName(name).stream()
+                .findFirst()
                 .orElseThrow(() -> new RuntimeException("Resume not found"));
 
         resume.setSkills(dto.getSkills());
@@ -107,14 +112,16 @@ public class ResumeService {
     }
 
     // ---------- PROJECTS ----------
-    public List<ProjectDetail> getProjects(String email) {
-        return resumeRepository.findByEmail(email)
+    public List<ProjectDetail> getProjectsByName(String name) {
+        return resumeRepository.findByName(name).stream()
+                .findFirst()
                 .map(Resume::getProjects)
                 .orElse(null);
     }
 
-    public List<ProjectDetail> updateProjects(String email, List<ProjectDTO> dtos) {
-        Resume resume = resumeRepository.findByEmail(email)
+    public List<ProjectDetail> updateProjectsByName(String name, List<ProjectDTO> dtos) {
+        Resume resume = resumeRepository.findByName(name).stream()
+                .findFirst()
                 .orElseThrow(() -> new RuntimeException("Resume not found"));
 
         List<ProjectDetail> projects = dtos.stream().map(dto -> {
@@ -132,14 +139,16 @@ public class ResumeService {
     }
 
     // ---------- ACHIEVEMENT ----------
-    public String getAchievement(String email) {
-        return resumeRepository.findByEmail(email)
+    public String getAchievementByName(String name) {
+        return resumeRepository.findByName(name).stream()
+                .findFirst()
                 .map(Resume::getAchievement)
                 .orElse(null);
     }
 
-    public String updateAchievement(String email, AchievementDTO dto) {
-        Resume resume = resumeRepository.findByEmail(email)
+    public String updateAchievementByName(String name, AchievementDTO dto) {
+        Resume resume = resumeRepository.findByName(name).stream()
+                .findFirst()
                 .orElseThrow(() -> new RuntimeException("Resume not found"));
 
         resume.setAchievement(dto.getAchievement());
@@ -149,14 +158,16 @@ public class ResumeService {
     }
 
     // ---------- ABOUT ----------
-    public String getAbout(String email) {
-        return resumeRepository.findByEmail(email)
+    public String getAboutByName(String name) {
+        return resumeRepository.findByName(name).stream()
+                .findFirst()
                 .map(Resume::getAbout)
                 .orElse(null);
     }
 
-    public String updateAbout(String email, AboutDTO dto) {
-        Resume resume = resumeRepository.findByEmail(email)
+    public String updateAboutByName(String name, AboutDTO dto) {
+        Resume resume = resumeRepository.findByName(name).stream()
+                .findFirst()
                 .orElseThrow(() -> new RuntimeException("Resume not found"));
 
         resume.setAbout(dto.getAbout());
@@ -165,3 +176,4 @@ public class ResumeService {
         return resume.getAbout();
     }
 }
+

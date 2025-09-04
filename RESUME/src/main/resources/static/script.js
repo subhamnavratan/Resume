@@ -1,5 +1,5 @@
 const baseURL = "https://Resume-19.onrender.com/resume"; // backend endpoint
-const email = "alice.kumar@example.com"; // replace with actual resume email
+const name = "Alice Kumar"; // replace with actual resume name
 const mainContent = document.getElementById("mainContent");
 
 function clearMain() {
@@ -8,7 +8,7 @@ function clearMain() {
 
 async function showSection(section) {
     clearMain();
-    let url = `${baseURL}/${email}`; // now fetches resume by email
+    let url = `${baseURL}/${encodeURIComponent(name)}`; // fetch by name now
 
     try {
         const res = await fetch(url);
@@ -102,3 +102,4 @@ async function showSection(section) {
         mainContent.innerHTML = `<p>Error: ${err.message}</p>`;
     }
 }
+

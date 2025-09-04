@@ -31,87 +31,90 @@ public class ResumeController {
         return ResponseEntity.ok(resumeService.getAllResumes());
     }
 
-    // ---------- GET RESUME BY EMAIL ----------
-    @GetMapping("/{email}")
-    public ResponseEntity<Resume> getResumeByEmail(@PathVariable String email) {
-        return resumeService.getResumeByEmail(email)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    // ---------- GET RESUMES BY NAME ----------
+    @GetMapping("/{name}")
+    public ResponseEntity<List<Resume>> getResumesByName(@PathVariable String name) {
+        List<Resume> resumes = resumeService.getResumesByName(name);
+        if (resumes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(resumes);
     }
 
-    // ---------- DELETE RESUME ----------
-    @DeleteMapping("/{email}")
-    public ResponseEntity<String> deleteResume(@PathVariable String email) {
-        resumeService.deleteResume(email);
-        return ResponseEntity.ok("Resume deleted with Email: " + email);
+    // ---------- DELETE RESUME BY NAME ----------
+    @DeleteMapping("/{name}")
+    public ResponseEntity<String> deleteResume(@PathVariable String name) {
+        resumeService.deleteResumeByName(name);
+        return ResponseEntity.ok("Resume(s) deleted with Name: " + name);
     }
 
     // ---------- CONTACT DETAILS ----------
-    @GetMapping("/{email}/contact")
-    public ResponseEntity<ContactDetail> getContactDetail(@PathVariable String email) {
-        return ResponseEntity.ok(resumeService.getContactDetail(email));
+    @GetMapping("/{name}/contact")
+    public ResponseEntity<ContactDetail> getContactDetail(@PathVariable String name) {
+        return ResponseEntity.ok(resumeService.getContactDetailByName(name));
     }
 
-    @PutMapping("/{email}/contact")
-    public ResponseEntity<ContactDetail> updateContactDetail(@PathVariable String email, @RequestBody ContactDTO dto) {
-        return ResponseEntity.ok(resumeService.updateContact(email, dto));
+    @PutMapping("/{name}/contact")
+    public ResponseEntity<ContactDetail> updateContactDetail(@PathVariable String name, @RequestBody ContactDTO dto) {
+        return ResponseEntity.ok(resumeService.updateContactByName(name, dto));
     }
 
     // ---------- EDUCATION DETAILS ----------
-    @GetMapping("/{email}/education")
-    public ResponseEntity<List<EducationDetail>> getEducationDetails(@PathVariable String email) {
-        return ResponseEntity.ok(resumeService.getEducationDetails(email));
+    @GetMapping("/{name}/education")
+    public ResponseEntity<List<EducationDetail>> getEducationDetails(@PathVariable String name) {
+        return ResponseEntity.ok(resumeService.getEducationDetailsByName(name));
     }
 
-    @PutMapping("/{email}/education")
-    public ResponseEntity<List<EducationDetail>> updateEducationDetails(@PathVariable String email,
+    @PutMapping("/{name}/education")
+    public ResponseEntity<List<EducationDetail>> updateEducationDetails(@PathVariable String name,
                                                                         @RequestBody List<EducationDTO> dtos) {
-        return ResponseEntity.ok(resumeService.updateEducation(email, dtos));
+        return ResponseEntity.ok(resumeService.updateEducationByName(name, dtos));
     }
 
     // ---------- SKILLS ----------
-    @GetMapping("/{email}/skills")
-    public ResponseEntity<List<String>> getSkills(@PathVariable String email) {
-        return ResponseEntity.ok(resumeService.getSkills(email));
+    @GetMapping("/{name}/skills")
+    public ResponseEntity<List<String>> getSkills(@PathVariable String name) {
+        return ResponseEntity.ok(resumeService.getSkillsByName(name));
     }
 
-    @PutMapping("/{email}/skills")
-    public ResponseEntity<List<String>> updateSkills(@PathVariable String email, @RequestBody SkillsDTO dto) {
-        return ResponseEntity.ok(resumeService.updateSkills(email, dto));
+    @PutMapping("/{name}/skills")
+    public ResponseEntity<List<String>> updateSkills(@PathVariable String name, @RequestBody SkillsDTO dto) {
+        return ResponseEntity.ok(resumeService.updateSkillsByName(name, dto));
     }
 
     // ---------- PROJECTS ----------
-    @GetMapping("/{email}/projects")
-    public ResponseEntity<List<ProjectDetail>> getProjects(@PathVariable String email) {
-        return ResponseEntity.ok(resumeService.getProjects(email));
+    @GetMapping("/{name}/projects")
+    public ResponseEntity<List<ProjectDetail>> getProjects(@PathVariable String name) {
+        return ResponseEntity.ok(resumeService.getProjectsByName(name));
     }
 
-    @PutMapping("/{email}/projects")
-    public ResponseEntity<List<ProjectDetail>> updateProjects(@PathVariable String email, @RequestBody List<ProjectDTO> dtos) {
-        return ResponseEntity.ok(resumeService.updateProjects(email, dtos));
+    @PutMapping("/{name}/projects")
+    public ResponseEntity<List<ProjectDetail>> updateProjects(@PathVariable String name, @RequestBody List<ProjectDTO> dtos) {
+        return ResponseEntity.ok(resumeService.updateProjectsByName(name, dtos));
     }
 
     // ---------- ACHIEVEMENT ----------
-    @GetMapping("/{email}/achievement")
-    public ResponseEntity<String> getAchievement(@PathVariable String email) {
-        return ResponseEntity.ok(resumeService.getAchievement(email));
+    @GetMapping("/{name}/achievement")
+    public ResponseEntity<String> getAchievement(@PathVariable String name) {
+        return ResponseEntity.ok(resumeService.getAchievementByName(name));
     }
 
-    @PutMapping("/{email}/achievement")
-    public ResponseEntity<String> updateAchievement(@PathVariable String email, @RequestBody AchievementDTO dto) {
-        return ResponseEntity.ok(resumeService.updateAchievement(email, dto));
+    @PutMapping("/{name}/achievement")
+    public ResponseEntity<String> updateAchievement(@PathVariable String name, @RequestBody AchievementDTO dto) {
+        return ResponseEntity.ok(resumeService.updateAchievementByName(name, dto));
     }
 
     // ---------- ABOUT ----------
-    @GetMapping("/{email}/about")
-    public ResponseEntity<String> getAbout(@PathVariable String email) {
-        return ResponseEntity.ok(resumeService.getAbout(email));
+    @GetMapping("/{name}/about")
+    public ResponseEntity<String> getAbout(@PathVariable String name) {
+        return ResponseEntity.ok(resumeService.getAboutByName(name));
     }
 
-    @PutMapping("/{email}/about")
-    public ResponseEntity<String> updateAbout(@PathVariable String email, @RequestBody AboutDTO dto) {
-        return ResponseEntity.ok(resumeService.updateAbout(email, dto));
+    @PutMapping("/{name}/about")
+    public ResponseEntity<String> updateAbout(@PathVariable String name, @RequestBody AboutDTO dto) {
+        return ResponseEntity.ok(resumeService.updateAboutByName(name, dto));
     }
 }
+
 
 
