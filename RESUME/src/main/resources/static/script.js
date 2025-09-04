@@ -1,5 +1,5 @@
-const baseURL = "https://Resume-17.onrender.com"; // Replace with your backend URL
-const resumeId = "64fa1111b9123e4f89d67890"; // Example resume ID
+const baseURL = "https://Resume-18.onrender.com"; // Replace with your backend URL
+const resumeId = "68b73987f247c44ed5dcdb8c"; // Example resume ID
 const mainContent = document.getElementById("mainContent");
 
 function clearMain() {
