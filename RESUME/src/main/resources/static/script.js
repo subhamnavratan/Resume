@@ -1,4 +1,4 @@
-const baseURL = "https://Resume-20.onrender.com/resume"; // backend endpoint
+const baseURL = "https://Resume-21.onrender.com/resume"; // backend endpoint
 const name = "Alice Kumar"; // replace with actual resume name
 const mainContent = document.getElementById("mainContent");
 
@@ -15,26 +15,34 @@ async function showSection(section) {
         if (!res.ok) throw new Error("Resume not found");
         const data = await res.json();
 
-        switch(section) {
+        switch (section) {
             case "about":
                 mainContent.innerHTML = `
-                    <h2>${data.name}</h2>
-                    <p>${data.about}</p>
+                    <h2>${data.name || "Unknown Name"}</h2>
+                    <p>${data.about || "No about section available."}</p>
                 `;
                 break;
 
             case "contact":
                 const contact = data.contactDetail;
+                if (!contact) {
+                    mainContent.innerHTML = `<p>No contact details available.</p>`;
+                    break;
+                }
                 mainContent.innerHTML = `
-                    <p>Email: ${contact.email}</p>
-                    <p>Phone: ${contact.phoneNumber}</p>
-                    <p>LinkedIn: <a href="${contact.linkedin}" target="_blank">${contact.linkedin}</a></p>
-                    <p>GitHub: <a href="${contact.github}" target="_blank">${contact.github}</a></p>
-                    <p>Address: ${contact.address}</p>
+                    <p>Email: ${contact.email || "N/A"}</p>
+                    <p>Phone: ${contact.phoneNumber || "N/A"}</p>
+                    <p>LinkedIn: ${contact.linkedin ? `<a href="${contact.linkedin}" target="_blank">${contact.linkedin}</a>` : "N/A"}</p>
+                    <p>GitHub: ${contact.github ? `<a href="${contact.github}" target="_blank">${contact.github}</a>` : "N/A"}</p>
+                    <p>Address: ${contact.address || "N/A"}</p>
                 `;
                 break;
 
             case "education":
+                if (!data.educationDetails || data.educationDetails.length === 0) {
+                    mainContent.innerHTML = `<p>No education details available.</p>`;
+                    break;
+                }
                 const table = document.createElement("table");
                 const thead = document.createElement("thead");
                 const headerRow = document.createElement("tr");
@@ -51,7 +59,7 @@ async function showSection(section) {
                     const row = document.createElement("tr");
                     [edu.level, edu.institution, edu.year, edu.grade].forEach(text => {
                         const td = document.createElement("td");
-                        td.innerText = text;
+                        td.innerText = text || "N/A";
                         row.appendChild(td);
                     });
                     tbody.appendChild(row);
@@ -61,28 +69,42 @@ async function showSection(section) {
                 break;
 
             case "skills":
+                if (!data.skills || data.skills.length === 0) {
+                    mainContent.innerHTML = `<p>No skills available.</p>`;
+                    break;
+                }
                 const skillsList = document.createElement("ul");
                 data.skills.forEach(skill => {
                     const li = document.createElement("li");
-                    li.innerText = skill;
+                    li.innerText = skill || "N/A";
                     skillsList.appendChild(li);
                 });
                 mainContent.appendChild(skillsList);
                 break;
 
             case "projects":
+                if (!data.projects || data.projects.length === 0) {
+                    mainContent.innerHTML = `<p>No projects available.</p>`;
+                    break;
+                }
                 data.projects.forEach(project => {
                     const div = document.createElement("div");
-                    div.innerHTML = `<h3>${project.title}</h3>
-                                     <p>${project.description}</p>
-                                     <a href="${project.link}" target="_blank">${project.link}</a>`;
+                    div.innerHTML = `
+                        <h3>${project.title || "Untitled Project"}</h3>
+                        <p>${project.description || "No description provided."}</p>
+                        ${project.link ? `<a href="${project.link}" target="_blank">${project.link}</a>` : ""}
+                    `;
                     mainContent.appendChild(div);
                 });
                 break;
 
             case "achievement":
+                if (!data.achievement && !data.leetcodeProfile && !data.gfgProfile) {
+                    mainContent.innerHTML = `<p>No achievements available.</p>`;
+                    break;
+                }
                 const achievementDiv = document.createElement("div");
-                achievementDiv.innerHTML = `<p>${data.achievement}</p>`;
+                achievementDiv.innerHTML = `<p>${data.achievement || ""}</p>`;
 
                 if (data.leetcodeProfile) {
                     achievementDiv.innerHTML += `<p>LeetCode: <a href="${data.leetcodeProfile}" target="_blank">${data.leetcodeProfile}</a></p>`;
@@ -98,7 +120,7 @@ async function showSection(section) {
             default:
                 mainContent.innerHTML = `<p>Section not found</p>`;
         }
-    } catch(err) {
+    } catch (err) {
         mainContent.innerHTML = `<p>Error: ${err.message}</p>`;
     }
 }
