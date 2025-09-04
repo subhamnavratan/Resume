@@ -31,87 +31,86 @@ public class ResumeController {
         return ResponseEntity.ok(resumeService.getAllResumes());
     }
 
-    // ---------- GET RESUME BY ID ----------
-    @GetMapping("/{id}")
-    public ResponseEntity<Resume> getResumeById(@PathVariable String id) {
-        return resumeService.getResumeById(id)
+    // ---------- GET RESUME BY EMAIL ----------
+    @GetMapping("/{email}")
+    public ResponseEntity<Resume> getResumeByEmail(@PathVariable String email) {
+        return resumeService.getResumeByEmail(email)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     // ---------- DELETE RESUME ----------
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteResume(@PathVariable String id) {
-        resumeService.deleteResume(id);
-        return ResponseEntity.ok("Resume deleted with ID: " + id);
+    @DeleteMapping("/{email}")
+    public ResponseEntity<String> deleteResume(@PathVariable String email) {
+        resumeService.deleteResume(email);
+        return ResponseEntity.ok("Resume deleted with Email: " + email);
     }
 
     // ---------- CONTACT DETAILS ----------
-    @GetMapping("/{id}/contact")
-    public ResponseEntity<ContactDetail> getContactDetail(@PathVariable String id) {
-        return ResponseEntity.ok(resumeService.getContactDetail(id));
+    @GetMapping("/{email}/contact")
+    public ResponseEntity<ContactDetail> getContactDetail(@PathVariable String email) {
+        return ResponseEntity.ok(resumeService.getContactDetail(email));
     }
 
-    @PutMapping("/{id}/contact")
-    public ResponseEntity<ContactDetail> updateContactDetail(@PathVariable String id, @RequestBody ContactDTO dto) {
-        return ResponseEntity.ok(resumeService.updateContact(id, dto));
+    @PutMapping("/{email}/contact")
+    public ResponseEntity<ContactDetail> updateContactDetail(@PathVariable String email, @RequestBody ContactDTO dto) {
+        return ResponseEntity.ok(resumeService.updateContact(email, dto));
     }
 
     // ---------- EDUCATION DETAILS ----------
-    @GetMapping("/{id}/education")
-    public ResponseEntity<List<EducationDetail>> getEducationDetails(@PathVariable String id) {
-        return ResponseEntity.ok(resumeService.getEducationDetails(id));
+    @GetMapping("/{email}/education")
+    public ResponseEntity<List<EducationDetail>> getEducationDetails(@PathVariable String email) {
+        return ResponseEntity.ok(resumeService.getEducationDetails(email));
     }
 
-    @PutMapping("/{id}/education")
-    public ResponseEntity<List<EducationDetail>> updateEducationDetails(@PathVariable String id,
+    @PutMapping("/{email}/education")
+    public ResponseEntity<List<EducationDetail>> updateEducationDetails(@PathVariable String email,
                                                                         @RequestBody List<EducationDTO> dtos) {
-        return ResponseEntity.ok(resumeService.updateEducation(id, dtos));
+        return ResponseEntity.ok(resumeService.updateEducation(email, dtos));
     }
 
     // ---------- SKILLS ----------
-    @GetMapping("/{id}/skills")
-    public ResponseEntity<List<String>> getSkills(@PathVariable String id) {
-        return ResponseEntity.ok(resumeService.getSkills(id));
+    @GetMapping("/{email}/skills")
+    public ResponseEntity<List<String>> getSkills(@PathVariable String email) {
+        return ResponseEntity.ok(resumeService.getSkills(email));
     }
 
-    @PutMapping("/{id}/skills")
-    public ResponseEntity<List<String>> updateSkills(@PathVariable String id, @RequestBody SkillsDTO dto) {
-        return ResponseEntity.ok(resumeService.updateSkills(id, dto));
+    @PutMapping("/{email}/skills")
+    public ResponseEntity<List<String>> updateSkills(@PathVariable String email, @RequestBody SkillsDTO dto) {
+        return ResponseEntity.ok(resumeService.updateSkills(email, dto));
     }
+
     // ---------- PROJECTS ----------
-    @GetMapping("/{id}/projects")
-    public ResponseEntity<List<ProjectDetail>> getProjects(@PathVariable String id) {
-        return ResponseEntity.ok(resumeService.getProjects(id));
+    @GetMapping("/{email}/projects")
+    public ResponseEntity<List<ProjectDetail>> getProjects(@PathVariable String email) {
+        return ResponseEntity.ok(resumeService.getProjects(email));
     }
 
-    @PutMapping("/{id}/projects")
-    public ResponseEntity<List<ProjectDetail>> updateProjects(@PathVariable String id, @RequestBody List<ProjectDTO> dtos) {
-        return ResponseEntity.ok(resumeService.updateProjects(id, dtos));
+    @PutMapping("/{email}/projects")
+    public ResponseEntity<List<ProjectDetail>> updateProjects(@PathVariable String email, @RequestBody List<ProjectDTO> dtos) {
+        return ResponseEntity.ok(resumeService.updateProjects(email, dtos));
     }
-
-
 
     // ---------- ACHIEVEMENT ----------
-    @GetMapping("/{id}/achievement")
-    public ResponseEntity<String> getAchievement(@PathVariable String id) {
-        return ResponseEntity.ok(resumeService.getAchievement(id));
+    @GetMapping("/{email}/achievement")
+    public ResponseEntity<String> getAchievement(@PathVariable String email) {
+        return ResponseEntity.ok(resumeService.getAchievement(email));
     }
 
-    @PutMapping("/{id}/achievement")
-    public ResponseEntity<String> updateAchievement(@PathVariable String id, @RequestBody AchievementDTO dto) {
-        return ResponseEntity.ok(resumeService.updateAchievement(id, dto));
+    @PutMapping("/{email}/achievement")
+    public ResponseEntity<String> updateAchievement(@PathVariable String email, @RequestBody AchievementDTO dto) {
+        return ResponseEntity.ok(resumeService.updateAchievement(email, dto));
     }
 
     // ---------- ABOUT ----------
-    @GetMapping("/{id}/about")
-    public ResponseEntity<String> getAbout(@PathVariable String id) {
-        return ResponseEntity.ok(resumeService.getAbout(id));
+    @GetMapping("/{email}/about")
+    public ResponseEntity<String> getAbout(@PathVariable String email) {
+        return ResponseEntity.ok(resumeService.getAbout(email));
     }
 
-    @PutMapping("/{id}/about")
-    public ResponseEntity<String> updateAbout(@PathVariable String id, @RequestBody AboutDTO dto) {
-        return ResponseEntity.ok(resumeService.updateAbout(id, dto));
+    @PutMapping("/{email}/about")
+    public ResponseEntity<String> updateAbout(@PathVariable String email, @RequestBody AboutDTO dto) {
+        return ResponseEntity.ok(resumeService.updateAbout(email, dto));
     }
 }
 

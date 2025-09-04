@@ -1,5 +1,5 @@
-const baseURL = "https://Resume-18.onrender.com"; // Replace with your backend URL
-const resumeId = "68b73987f247c44ed5dcdb8c"; // Example resume ID
+const baseURL = "https://Resume-19.onrender.com/resume"; // backend endpoint
+const email = "alice.kumar@example.com"; // replace with actual resume email
 const mainContent = document.getElementById("mainContent");
 
 function clearMain() {
@@ -8,7 +8,7 @@ function clearMain() {
 
 async function showSection(section) {
     clearMain();
-    let url = `${baseURL}/${resumeId}`;
+    let url = `${baseURL}/${email}`; // now fetches resume by email
 
     try {
         const res = await fetch(url);
@@ -84,17 +84,12 @@ async function showSection(section) {
                 const achievementDiv = document.createElement("div");
                 achievementDiv.innerHTML = `<p>${data.achievement}</p>`;
 
-                // Add LeetCode and GFG links if they exist
                 if (data.leetcodeProfile) {
-                    const leetLink = document.createElement("p");
-                    leetLink.innerHTML = `LeetCode: <a href="${data.leetcodeProfile}" target="_blank">${data.leetcodeProfile}</a>`;
-                    achievementDiv.appendChild(leetLink);
+                    achievementDiv.innerHTML += `<p>LeetCode: <a href="${data.leetcodeProfile}" target="_blank">${data.leetcodeProfile}</a></p>`;
                 }
 
                 if (data.gfgProfile) {
-                    const gfgLink = document.createElement("p");
-                    gfgLink.innerHTML = `GeeksforGeeks: <a href="${data.gfgProfile}" target="_blank">${data.gfgProfile}</a>`;
-                    achievementDiv.appendChild(gfgLink);
+                    achievementDiv.innerHTML += `<p>GeeksforGeeks: <a href="${data.gfgProfile}" target="_blank">${data.gfgProfile}</a></p>`;
                 }
 
                 mainContent.appendChild(achievementDiv);
@@ -107,4 +102,3 @@ async function showSection(section) {
         mainContent.innerHTML = `<p>Error: ${err.message}</p>`;
     }
 }
-;
