@@ -1,7 +1,7 @@
 // ============================
 // CONFIG
 // ============================
-const baseURL = "https://Resume-24.onrender.com/resume"; // backend endpoint
+const baseURL = "https://Resume-25.onrender.com/resume"; // backend endpoint
 const resumeName = "Subham Kumar Navratan"; // replace with actual resume name
 
 // Select main content container
