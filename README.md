@@ -21,19 +21,39 @@ spring.data.mongodb.uri=${MONGO_URI}
 
 APIs******
 Base Api : https://resume-27.onrender.com
+
 GET /resume/{name} → Get resume by name
+
 POST /resume → Create new resume
+
 PUT /resume/{name} → Update resume by name
+
 DELETE /resume/{name} → Delete resume by name
+
 GET /resume/{name}/contact → Get contact details
+
 PUT /resume/{name}/contact → Update contact details
+
 GET /resume/{name}/education → Get education details
+
 PUT /resume/{name}/education → Update education details
+
 GET /resume/{name}/skills → Get skills
+
 PUT /resume/{name}/skills → Update skills
+
 GET /resume/{name}/projects → Get projects
+
 PUT /resume/{name}/projects → Update projects
+
 GET /resume/{name}/achievement → Get achievement
+
 PUT /resume/{name}/achievement → Update achievement
+
 GET /resume/{name}/about → Get about section
+
 PUT /resume/{name}/about → Update about section
+
+***************** POSTMAN***********************
+
+https://web.postman.co/workspace/My-Workspace~9509933b-705e-41fb-88cb-8a3955cb0bbf/collection/45320696-6e1361bf-af33-4d4d-a990-6f4dcdb2adce?action=share&source=copy-link&creator=45320696
